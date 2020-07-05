@@ -12,7 +12,9 @@ import "./App.css";
 class App extends React.Component {
   state = {
     users: [],
+    user: {},
     loading: false,
+    repos: [],
     alert: null,
   };
 
@@ -30,6 +32,22 @@ class App extends React.Component {
       `https://api.github.com/search/users?q=${user}&client_id=${process.env.REACT_APP_GITHUB_CLIENT_ID}&client_secret=${process.env.REACT_APP_GITHUB_CLIENT_SECRET}`
     );
     this.setState({ users: res.data.items, loading: false });
+  };
+
+  userData = async (user) => {
+    this.setState({ loading: true });
+    const res = await axios.get(
+      `https://api.github.com/users/${user}?client_id=${process.env.REACT_APP_GITHUB_CLIENT_ID}&client_secret=${process.env.REACT_APP_GITHUB_CLIENT_SECRET}`
+    );
+    this.setState({ user: res.data, loading: false });
+  };
+
+  userRepos = async (user) => {
+    this.setState({ loading: true });
+    const res = await axios.get(
+      `https://api.github.com/users/${user}/repos?per_page=default&sort=created:asc&client_id=${process.env.REACT_APP_GITHUB_CLIENT_ID}&client_secret=${process.env.REACT_APP_GITHUB_CLIENT_SECRET}`
+    );
+    this.setState({ repos: res.data, loading: false });
   };
 
   setAlert = (msg, type) => {
@@ -64,7 +82,13 @@ class App extends React.Component {
                 <About />
               </Route>
               <Route exact path="/user/:login">
-                <User />
+                <User
+                  userData={this.userData}
+                  userRepos={this.userRepos}
+                  user={this.state.user}
+                  repos={this.state.repos}
+                  loading={this.state.loading}
+                />
               </Route>
             </Switch>
           </div>
