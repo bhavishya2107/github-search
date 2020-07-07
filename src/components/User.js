@@ -20,7 +20,6 @@ class User extends Component {
       bio,
       blog,
       login,
-      html_url,
       followers,
       following,
       public_repos,
