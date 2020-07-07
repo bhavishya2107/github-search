@@ -24,7 +24,7 @@ class User extends Component {
       following,
       public_repos,
       public_gists,
-      htm_url,
+      html_url,
       hireable,
       company,
     } = this.props.user;
@@ -61,7 +61,7 @@ class User extends Component {
                     <p>{bio}</p>
                   </>
                 )}
-                <a href={htm_url} className="btn btn-dark my-1">
+                <a href={html_url} target="_blank" className="btn btn-dark my-1">
                   Visit Github Profile
                 </a>
                 <ul>
