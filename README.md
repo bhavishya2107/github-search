@@ -15,4 +15,5 @@ npm start
 
 > A react app using Github API to fetch details of a github user.
 
-## DEMO
+### DEMO
+![App](https://github.com/bhavishya2107/github-search/blob/master/github.gif?raw=true)
